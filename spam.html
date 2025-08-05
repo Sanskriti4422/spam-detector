@@ -17,7 +17,8 @@
   <script>
     function checkSpam() {
       const text = document.getElementById('emailText').value;
-      fetch('http://localhost:3000/detect-spam', {
+      fetch('https://spam-detector-g483.onrender.com/detect-spam', {
+
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
