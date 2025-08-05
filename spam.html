@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spam Detector</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>📧 Spam Detector</h1>
+    <textarea id="emailText" placeholder="Enter email text here..."></textarea>
+    <button onclick="checkSpam()">Check for Spam</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function checkSpam() {
+      const text = document.getElementById('emailText').value;
+      fetch('http://localhost:3000/detect-spam', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ text })
+      })
+      .then(res => res.json())
+      .then(data => {
+        const result = document.getElementById('result');
+        result.textContent = data.spam ? '⚠️ This is likely a spam email!' : '✅ This email looks safe.';
+        result.style.color = data.spam ? 'red' : 'green';
+      });
+    }
+  </script>
+</body>
+</html>
